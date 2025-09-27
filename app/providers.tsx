@@ -10,6 +10,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { config } from "@/lib/wagmi";
 
 const queryClient = new QueryClient();
 
@@ -32,8 +34,10 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
-        <QueryClientProvider client={queryClient}>{children}
-        </QueryClientProvider>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>{children}
+          </QueryClientProvider>
+        </WagmiProvider>
       </NextThemesProvider>
     </HeroUIProvider>
   );
